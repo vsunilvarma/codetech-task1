@@ -5,6 +5,7 @@ Domain:-ARTIFICAL INTELLIGENCE
 Duration:-JUNE 25th,2024 to JULY 25th, 2024
 Mentor:-Neela Santhosh Kumar
 
+OVERVIEW OF THE PROJECT:-
 Data preprocessing is a crucial step in the machine learning pipeline, as it ensures that the data is clean and suitable for modeling. Here's a breakdown of the preprocessing steps included in the code:
 
 Loading the Dataset:
