@@ -1,0 +1,50 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+
+# Load the dataset (update the filename if needed)
+data = pd.read_csv('titanic_synthetic.csv')
+
+print("Original Data Shape:", data.shape)
+
+# Check for missing values
+missing_values = data.isnull().sum()
+print("Missing Values:", missing_values)
+
+# Fill missing values in the 'Age' column with mean values
+data['Age'].fillna(data['Age'].mean(), inplace=True)
+
+# Drop remaining rows with missing values
+data = data.dropna()
+
+print("Data Shape after handling missing values:", data.shape)
+
+# Get categorical features
+categorical_features = data.select_dtypes(include=['object']).columns
+print("Categorical Features:", categorical_features)
+
+# Encode categorical features using one-hot encoding
+encoded_data = pd.get_dummies(data, columns=categorical_features)
+
+print("Encoded Data Shape:", encoded_data.shape)
+
+# Split the data into X and y
+X = encoded_data.drop('Survived', axis=1)
+y = encoded_data['Survived']
+
+print("X Shape:", X.shape)
+print("y Shape:", y.shape)
+
+# Scale the data using Min-Max Scaler
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+
+print("Scaled X Shape:", X_scaled.shape)
+
+# Split the data into training and testing sets
+train_data, val_data, train_labels, val_labels = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+print("Train Data Shape:", train_data.shape)
+print("Validation Data Shape:", val_data.shape)
+print("Train Labels Shape:", train_labels.shape)
+print("Validation Labels Shape:", val_labels.shape)
