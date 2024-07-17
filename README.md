@@ -1,1 +1,7 @@
-# codetech-task1
+Name:-SUNILVARMA VEERABATTHINI
+Company:-CODETECH IT SOLUTIONS
+ID:-CT4AI3053
+Domain:-ARTIFICAL INTELLIGENCE
+Duration:-JUNE 25th,2024 to JULY 25th, 2024
+Mentor:-Neela Santhosh Kumar
+
