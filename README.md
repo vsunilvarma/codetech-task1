@@ -8,13 +8,14 @@ Mentor:-Neela Santhosh Kumar
 OVERVIEW OF THE PROJECT:-
 Data preprocessing is a crucial step in the machine learning pipeline, as it ensures that the data is clean and suitable for modeling. Here's a breakdown of the preprocessing steps included in the code:
 
-Loading the Dataset:
+LOADING THE DATASET:
 
 Reads the dataset from a CSV file into a pandas DataFrame.
 Checking for Missing Values:
 
 Identifies missing values in the dataset.
-Handling Missing Values:
+
+HANDLING MISSING VALUES :
 
 Fills missing values in the 'Age' column with the mean of the column.
 Drops any remaining rows with missing values.
@@ -25,7 +26,8 @@ Applies one-hot encoding to convert categorical features into numerical format.
 Splitting Data into Features and Labels:
 
 Separates the dataset into features (X) and labels (y).
-Scaling Features:
+SCALING FEATURES![Screenshot (46)](https://github.com/user-attachments/assets/75ca22a5-df53-43db-98ba-3a74ddb4a9b7)
+:
 
 Uses Min-Max Scaler to scale the features to a range between 0 and 1.
 Splitting Data into Training and Testing Sets:
