@@ -1,0 +1,69 @@
+import nltk
+from nltk.corpus import movie_reviews
+from nltk.classify import NaiveBayesClassifier
+from nltk.classify.util import accuracy as nltk_accuracy
+from sklearn.model_selection import train_test_split
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+import random
+
+print("Starting the script...")
+
+nltk.download('movie_reviews')
+nltk.download('stopwords')
+
+# Load the movie reviews data
+print("Loading movie reviews data...")
+documents = [(list(movie_reviews.words(fileid)), category)
+             for category in movie_reviews.categories()
+             for fileid in movie_reviews.fileids(category)]
+
+# Shuffle the documents
+print("Shuffling documents...")
+random.shuffle(documents)
+
+# Define a feature extractor
+stop_words = set(stopwords.words('english'))
+all_words = FreqDist(w.lower() for w in movie_reviews.words() if w.lower() not in stop_words)
+word_features = list(all_words)[:2000]  # Use the top 2000 words as features
+
+def document_features(document):
+    document_words = set(document)
+    features = {}
+    for word in word_features:
+        features[word] = (word in document_words)
+    return features
+
+# Create feature sets for all documents
+print("Creating feature sets...")
+feature_sets = [(document_features(d), c) for (d, c) in documents]
+
+# Split the data into training and test sets
+print("Splitting the data into training and test sets...")
+train_set, test_set = train_test_split(feature_sets, test_size=0.25, random_state=42)
+
+# Train a Naive Bayes classifier
+print("Training the Naive Bayes classifier...")
+classifier = NaiveBayesClassifier.train(train_set)
+
+# Evaluate the classifier
+print("Evaluating the classifier...")
+accuracy = nltk_accuracy(classifier, test_set)
+print(f'Accuracy: {accuracy * 100:.2f}%')
+
+def classify_review(review):
+    words = review.split()
+    features = document_features(words)
+    return classifier.classify(features)
+
+# Test the classifier with custom reviews
+print("Testing the classifier with custom reviews...")
+review = "This movie was amazing, with a great plot and fantastic characters!"
+print(f'Review: {review}')
+print(f'Sentiment: {classify_review(review)}')
+
+review = "The movie was boring and too long. I didn't enjoy it at all."
+print(f'Review: {review}')
+print(f'Sentiment: {classify_review(review)}')
+
+print("Script completed.")
